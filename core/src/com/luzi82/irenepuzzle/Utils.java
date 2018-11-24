@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import javax.xml.soap.Text;
 
@@ -18,6 +19,24 @@ public class Utils {
 
     public static void draw(SpriteBatch batch, TextureRegion img, float[] wsen){
         batch.draw(img,wsen[0],wsen[1],wsen[2]-wsen[0],wsen[3]-wsen[1]);
+    }
+
+    public static void setSize(Actor actor, float[] wsen){
+        actor.setPosition(wsen[0],wsen[1]);
+        actor.setScale(wsen[2]-wsen[0],wsen[3]-wsen[1]);
+    }
+
+    public static void setSize(Actor actor,float[] wsen,float[] wh){
+        actor.setPosition(wsen[0],wsen[1]);
+        actor.setScale((wsen[2]-wsen[0])/wh[0],(wsen[3]-wsen[1])/wh[1]);
+    }
+
+    public static void setBounds(Actor actor,float[] wsen){
+        actor.setBounds(wsen[0],wsen[1],wsen[2]-wsen[0],wsen[3]-wsen[1]);
+    }
+
+    public static float[] wsenToWh(float[] wsen){
+        return new float[]{wsen[2]-wsen[0],wsen[3]-wsen[1]};
     }
 
     public static Texture createColorTexture(Color color){
