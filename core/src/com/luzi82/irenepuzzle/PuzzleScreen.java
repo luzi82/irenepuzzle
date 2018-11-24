@@ -2,13 +2,18 @@ package com.luzi82.irenepuzzle;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Matrix4;
 
 public class PuzzleScreen extends ScreenAdapter {
+
+    static final int ROW_COUNT = 6;
+    static final int COL_COUNT = 8;
 
     SpriteBatch batch;
 
@@ -19,27 +24,36 @@ public class PuzzleScreen extends ScreenAdapter {
     Texture boardPanelBackgroundTexture;
     Texture piecePanelBackgroundTexture;
 
+    Texture puzzleImage;
+    TextureRegion[] pieceTextureRegionAry;
+
     @Override
     public void show () {
         batch = new SpriteBatch();
-        Pixmap tmpPixmap;
         float gray;
+        Color grayColor;
 
         gray = 2-Utils.PHI;
-        tmpPixmap = new Pixmap(1,1, Pixmap.Format.RGBA8888);
-        tmpPixmap.setColor(gray,gray,gray,1f);
-        tmpPixmap.fill();
-        boardPanelBackgroundTexture = new Texture(tmpPixmap);
-        tmpPixmap.dispose();
-        tmpPixmap=null;
+        grayColor = new Color(gray,gray,gray,1f);
+        boardPanelBackgroundTexture = Utils.createColorTexture(grayColor);
 
         gray = Utils.PHI-1;
-        tmpPixmap = new Pixmap(1,1, Pixmap.Format.RGBA8888);
-        tmpPixmap.setColor(gray,gray,gray,1f);
-        tmpPixmap.fill();
-        piecePanelBackgroundTexture = new Texture(tmpPixmap);
-        tmpPixmap.dispose();
-        tmpPixmap=null;
+        grayColor = new Color(gray,gray,gray,1f);
+        piecePanelBackgroundTexture = Utils.createColorTexture(grayColor);
+
+        puzzleImage = new Texture("badlogic.jpg");
+        pieceTextureRegionAry = new TextureRegion[ROW_COUNT*COL_COUNT];
+        int i=0;
+        for(int r=0;r<ROW_COUNT;++r) {
+            for(int c=0;c<COL_COUNT;++c) {
+                float u = ((float)c)/COL_COUNT;
+                float v = ((float)r)/ROW_COUNT;
+                float u2 = ((float)c+1)/COL_COUNT;
+                float v2 = ((float)r+1)/ROW_COUNT;
+                pieceTextureRegionAry[i] = new TextureRegion(puzzleImage,u,v,u2,v2);
+                ++i;
+            }
+        }
     }
 
     @Override
@@ -66,6 +80,19 @@ public class PuzzleScreen extends ScreenAdapter {
         batch.begin();
         Utils.draw(batch,boardPanelBackgroundTexture,boardWSEN);
         Utils.draw(batch,piecePanelBackgroundTexture,pieceWSEN);
+        int i=0;
+        for(int r=0;r<ROW_COUNT;++r) {
+            for(int c=0;c<COL_COUNT;++c) {
+                int[] wsen=new int[4];
+                int rr = ROW_COUNT-1-r;
+                wsen[0] = c*100;
+                wsen[1] = rr*100;
+                wsen[2] = wsen[0]+90;
+                wsen[3] = wsen[1]+90;
+                Utils.draw(batch,pieceTextureRegionAry[i],wsen);
+                ++i;
+            }
+        }
         batch.end();
     }
 
