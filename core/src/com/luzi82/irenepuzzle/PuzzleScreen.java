@@ -71,7 +71,14 @@ public class PuzzleScreen extends ScreenAdapter {
         float mid = width-piecePanelWidth;
         sizeGood = mid>0;
         if(!sizeGood)return;
-        boardPanelWSEN = new float[]{0,0,mid,height};
+        if(mid/COL_COUNT > height/ROW_COUNT){
+            float boardPanelWidth = height*COL_COUNT/ROW_COUNT;
+            boardPanelWSEN = new float[]{mid-boardPanelWidth,0,mid,height};
+        }else{
+            float boardPanelHeight = mid*ROW_COUNT/COL_COUNT;
+            boardPanelWSEN = new float[]{0,(height-boardPanelHeight)/2f,mid,(height+boardPanelHeight)/2f};
+        }
+
         piecePanelWSEN = new float[]{mid,0,width,height};
 
         piecePanelPieceDistance = piecePanelWidth;
