@@ -70,21 +70,20 @@ public class PuzzleScreen extends ScreenAdapter {
         float piecePanelWidth = height/8f;
         float mid = width-piecePanelWidth;
         sizeGood = mid>0;
-        if(sizeGood) {
-            boardPanelWSEN = new float[]{0,0,mid,height};
-            piecePanelWSEN = new float[]{mid,0,width,height};
+        if(!sizeGood)return;
+        boardPanelWSEN = new float[]{0,0,mid,height};
+        piecePanelWSEN = new float[]{mid,0,width,height};
 
-            piecePanelPieceDistance = piecePanelWidth;
-            piecePanelPieceSize = piecePanelWidth*0.8f;
-            pieceContentWE[0] = mid+(piecePanelWidth-piecePanelPieceSize)/2;
-            pieceContentWE[1] = pieceContentWE[0] + piecePanelPieceSize;
+        piecePanelPieceDistance = piecePanelWidth;
+        piecePanelPieceSize = piecePanelWidth*0.8f;
+        pieceContentWE[0] = mid+(piecePanelWidth-piecePanelPieceSize)/2;
+        pieceContentWE[1] = pieceContentWE[0] + piecePanelPieceSize;
 
-            Matrix4 m4=new Matrix4();
-            batch.setTransformMatrix(m4);
-            m4=new Matrix4();
-            m4.setToOrtho2D(0,0,width,height);
-            batch.setProjectionMatrix(m4);
-        }
+        Matrix4 m4=new Matrix4();
+        batch.setTransformMatrix(m4);
+        m4=new Matrix4();
+        m4.setToOrtho2D(0,0,width,height);
+        batch.setProjectionMatrix(m4);
     }
 
     @Override
