@@ -12,20 +12,29 @@ import com.badlogic.gdx.math.Matrix4;
 
 public class PuzzleScreen extends ScreenAdapter {
 
+    // const
     static final int ROW_COUNT = 6;
     static final int COL_COUNT = 8;
 
+    // texture
+    Texture boardPanelBackgroundTexture;
+    Texture piecePanelBackgroundTexture;
+    Texture puzzleImage;
+    TextureRegion[] pieceTextureRegionAry;
+
+    // layout var affected by resize
     SpriteBatch batch;
 
     boolean sizeGood=false;
-    int[] boardWSEN = new int[4];
-    int[] pieceWSEN = new int[4];
+    float[] boardWSEN = new float[4];
+    float[] pieceWSEN = new float[4];
 
-    Texture boardPanelBackgroundTexture;
-    Texture piecePanelBackgroundTexture;
+    float piecePanelPieceDistance;
+    float piecePanelPieceSize;
+    float[] pieceContentWE = new float[2];
 
-    Texture puzzleImage;
-    TextureRegion[] pieceTextureRegionAry;
+    // layout var affected by action
+    float pieceContentOffset = 0;
 
     @Override
     public void show () {
@@ -59,11 +68,18 @@ public class PuzzleScreen extends ScreenAdapter {
     @Override
     public void resize(int width, int height) {
         //System.out.println(String.format("resize %s %s",width,height));
-        int mid = width-height/8;
+        float piecePanelWidth = height/8f;
+        float mid = width-piecePanelWidth;
         sizeGood = mid>0;
         if(sizeGood) {
-            boardWSEN = new int[]{0,0,mid,height};
-            pieceWSEN = new int[]{mid,0,width,height};
+            boardWSEN = new float[]{0,0,mid,height};
+            pieceWSEN = new float[]{mid,0,width,height};
+
+            piecePanelPieceDistance = piecePanelWidth;
+            piecePanelPieceSize = piecePanelWidth*0.8f;
+            pieceContentWE[0] = mid+(piecePanelWidth-piecePanelPieceSize)/2;
+            pieceContentWE[1] = pieceContentWE[0] + piecePanelPieceSize;
+
             Matrix4 m4=new Matrix4();
             batch.setTransformMatrix(m4);
             m4=new Matrix4();
@@ -80,18 +96,14 @@ public class PuzzleScreen extends ScreenAdapter {
         batch.begin();
         Utils.draw(batch,boardPanelBackgroundTexture,boardWSEN);
         Utils.draw(batch,piecePanelBackgroundTexture,pieceWSEN);
-        int i=0;
-        for(int r=0;r<ROW_COUNT;++r) {
-            for(int c=0;c<COL_COUNT;++c) {
-                int[] wsen=new int[4];
-                int rr = ROW_COUNT-1-r;
-                wsen[0] = c*100;
-                wsen[1] = rr*100;
-                wsen[2] = wsen[0]+90;
-                wsen[3] = wsen[1]+90;
-                Utils.draw(batch,pieceTextureRegionAry[i],wsen);
-                ++i;
-            }
+
+        float[] wsen = new float[4];
+        for(int i=0;i<pieceTextureRegionAry.length;++i){
+            wsen[0] = pieceContentWE[0];
+            wsen[1] = i*piecePanelPieceDistance+pieceContentOffset;
+            wsen[2] = pieceContentWE[1];
+            wsen[3] = wsen[1]+piecePanelPieceSize;
+            Utils.draw(batch,pieceTextureRegionAry[i],wsen);
         }
         batch.end();
     }
