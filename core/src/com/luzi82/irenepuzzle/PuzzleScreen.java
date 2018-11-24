@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -26,8 +25,8 @@ public class PuzzleScreen extends ScreenAdapter {
     SpriteBatch batch;
 
     boolean sizeGood=false;
-    float[] boardWSEN = new float[4];
-    float[] pieceWSEN = new float[4];
+    float[] boardPanelWSEN = new float[4];
+    float[] piecePanelWSEN = new float[4];
 
     float piecePanelPieceDistance;
     float piecePanelPieceSize;
@@ -72,8 +71,8 @@ public class PuzzleScreen extends ScreenAdapter {
         float mid = width-piecePanelWidth;
         sizeGood = mid>0;
         if(sizeGood) {
-            boardWSEN = new float[]{0,0,mid,height};
-            pieceWSEN = new float[]{mid,0,width,height};
+            boardPanelWSEN = new float[]{0,0,mid,height};
+            piecePanelWSEN = new float[]{mid,0,width,height};
 
             piecePanelPieceDistance = piecePanelWidth;
             piecePanelPieceSize = piecePanelWidth*0.8f;
@@ -94,8 +93,8 @@ public class PuzzleScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         if(!sizeGood)return;
         batch.begin();
-        Utils.draw(batch,boardPanelBackgroundTexture,boardWSEN);
-        Utils.draw(batch,piecePanelBackgroundTexture,pieceWSEN);
+        Utils.draw(batch,boardPanelBackgroundTexture, boardPanelWSEN);
+        Utils.draw(batch,piecePanelBackgroundTexture, piecePanelWSEN);
 
         float[] wsen = new float[4];
         for(int i=0;i<pieceTextureRegionAry.length;++i){
