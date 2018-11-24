@@ -22,13 +22,8 @@ public class PuzzleScreen extends ScreenAdapter {
     static final float[] BOARD_PANEL_WSEN = {0, 0, COL_COUNT, ROW_COUNT};
     static final float[] BOARD_PANEL_WH = Utils.wsenToWh(BOARD_PANEL_WSEN);
 
-    static final float PIECE_PANEL_HEIGHT_RATIO = 8;
-    static final float[] PIECE_PANEL_WSEN = {0, 0, 1, PIECE_PANEL_HEIGHT_RATIO};
-    static final float[] PIECE_PANEL_WH = Utils.wsenToWh(PIECE_PANEL_WSEN);
-
     // texture
     Texture boardPanelBackgroundTexture;
-    Texture piecePanelBackgroundTexture;
     Texture puzzleImage;
     TextureRegion[] pieceTextureRegionAry;
 
@@ -37,20 +32,13 @@ public class PuzzleScreen extends ScreenAdapter {
     float[] boardPanelWSEN = new float[4];
     float[] piecePanelWSEN = new float[4];
 
-    float piecePanelPieceDistance;
-    float piecePanelPieceSize;
-    float[] pieceContentWE = new float[2];
-
-    // layout var affected by action
-    float pieceContentOffset = 0;
-
+    // stage
     Stage stage;
 
     Group boardPanel;
     Image boardPanelBgImage;
 
-    Group piecePanel;
-    Image piecePanelBgImage;
+    PiecePanelGroup piecePanelGroup;
 
 
     @Override
@@ -64,10 +52,6 @@ public class PuzzleScreen extends ScreenAdapter {
         gray = 2 - Utils.PHI;
         grayColor = new Color(gray, gray, gray, 1f);
         boardPanelBackgroundTexture = Utils.createColorTexture(grayColor);
-
-        gray = Utils.PHI - 1;
-        grayColor = new Color(gray, gray, gray, 1f);
-        piecePanelBackgroundTexture = Utils.createColorTexture(grayColor);
 
         puzzleImage = new Texture("badlogic.jpg");
         pieceTextureRegionAry = new TextureRegion[ROW_COUNT * COL_COUNT];
@@ -97,11 +81,8 @@ public class PuzzleScreen extends ScreenAdapter {
         Utils.setSize(boardPanelBgImage, BOARD_PANEL_WSEN);
         boardPanel.addActor(boardPanelBgImage);
 
-        piecePanel = new Group();
-        stage.addActor(piecePanel);
-        piecePanelBgImage = new Image(piecePanelBackgroundTexture);
-        Utils.setSize(piecePanelBgImage, PIECE_PANEL_WSEN);
-        piecePanel.addActor(piecePanelBgImage);
+        piecePanelGroup = new PiecePanelGroup();
+        stage.addActor(piecePanelGroup);
     }
 
     @Override
@@ -123,13 +104,8 @@ public class PuzzleScreen extends ScreenAdapter {
 
         piecePanelWSEN = new float[]{mid, 0, width, height};
 
-        piecePanelPieceDistance = piecePanelWidth;
-        piecePanelPieceSize = piecePanelWidth * 0.8f;
-        pieceContentWE[0] = mid + (piecePanelWidth - piecePanelPieceSize) / 2;
-        pieceContentWE[1] = pieceContentWE[0] + piecePanelPieceSize;
-
         Utils.setSize(boardPanel, boardPanelWSEN, BOARD_PANEL_WH);
-        Utils.setSize(piecePanel, piecePanelWSEN, PIECE_PANEL_WH);
+        Utils.setSize(piecePanelGroup, piecePanelWSEN, PiecePanelGroup.PIECE_PANEL_WH);
     }
 
 
