@@ -20,14 +20,6 @@ public class PuzzleScreen extends ScreenAdapter {
     static final int ROW_COUNT = 6;
     static final int COL_COUNT = 8;
 
-    static final float[] BOARD_PANEL_WSEN = {0, 0, COL_COUNT, ROW_COUNT};
-    static final float[] BOARD_PANEL_WH = Utils.wsenToWh(BOARD_PANEL_WSEN);
-
-    // texture
-    Texture boardPanelBackgroundTexture;
-    Texture puzzleImage;
-    TextureRegion[] pieceTextureRegionAry;
-
     // layout var affected by resize
     boolean sizeGood = false;
     float[] boardPanelWSEN = new float[4];
@@ -36,23 +28,16 @@ public class PuzzleScreen extends ScreenAdapter {
     // stage
     Stage stage;
 
-    Group boardPanel;
-    Image boardPanelBgImage;
-
+    BoardPanelGroup boardPanelGroup;
     PiecePanelGroup piecePanelGroup;
 
+    Texture puzzleImage;
+    TextureRegion[] pieceTextureRegionAry;
 
     @Override
     public void show() {
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
-
-        float gray;
-        Color grayColor;
-
-        gray = 2 - Utils.PHI;
-        grayColor = new Color(gray, gray, gray, 1f);
-        boardPanelBackgroundTexture = Utils.createColorTexture(grayColor);
 
         puzzleImage = new Texture("badlogic.jpg");
         pieceTextureRegionAry = new TextureRegion[ROW_COUNT * COL_COUNT];
@@ -68,20 +53,8 @@ public class PuzzleScreen extends ScreenAdapter {
             }
         }
 
-        boardPanel = new Group();
-        Utils.setBounds(boardPanel, BOARD_PANEL_WSEN);
-        stage.addActor(boardPanel);
-        boardPanel.addListener(new InputListener() {
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                Gdx.app.log("Example", "touch started at (" + x + ", " + y + ")");
-                return false;
-            }
-        });
-
-        boardPanelBgImage = new Image(boardPanelBackgroundTexture);
-        Utils.setSize(boardPanelBgImage, BOARD_PANEL_WSEN);
-        boardPanel.addActor(boardPanelBgImage);
-
+        boardPanelGroup = new BoardPanelGroup(ROW_COUNT, COL_COUNT);
+        stage.addActor(boardPanelGroup);
         piecePanelGroup = new PiecePanelGroup();
         stage.addActor(piecePanelGroup);
     }
@@ -105,7 +78,7 @@ public class PuzzleScreen extends ScreenAdapter {
 
         piecePanelWSEN = new float[]{mid, 0, width, height};
 
-        Utils.setSize(boardPanel, boardPanelWSEN, BOARD_PANEL_WH);
+        Utils.setSize(boardPanelGroup, boardPanelWSEN, boardPanelGroup.BOARD_PANEL_WH);
         Utils.setSize(piecePanelGroup, piecePanelWSEN, PiecePanelGroup.PIECE_PANEL_WH);
     }
 
