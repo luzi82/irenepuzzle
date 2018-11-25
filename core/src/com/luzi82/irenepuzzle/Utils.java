@@ -27,7 +27,7 @@ public class Utils {
 //    }
 
     public static void setSize(Actor actor, Rectangle outerRect) {
-        actor.setPosition(outerRect.x,outerRect.y);
+        actor.setPosition(outerRect.x, outerRect.y);
         actor.setScale(outerRect.width, outerRect.height);
     }
 
@@ -37,8 +37,8 @@ public class Utils {
 //    }
 
     public static void setSize(Actor actor, Rectangle outerRect, Vector2 innerSize) {
-        actor.setPosition(outerRect.x,outerRect.y);
-        actor.setScale(outerRect.width/innerSize.x, outerRect.height/innerSize.y);
+        actor.setPosition(outerRect.x, outerRect.y);
+        actor.setScale(outerRect.width / innerSize.x, outerRect.height / innerSize.y);
     }
 
     public static void setBounds(Actor actor, float[] wsen) {

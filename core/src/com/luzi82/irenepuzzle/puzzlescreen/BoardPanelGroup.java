@@ -13,7 +13,7 @@ public class BoardPanelGroup extends Group {
     final int ROW_COUNT;
     final int COL_COUNT;
 
-//    final float[] BOARD_PANEL_WSEN;
+    //    final float[] BOARD_PANEL_WSEN;
 //    final float[] BOARD_PANEL_WH;
     final Rectangle INNER_RECT;
 
@@ -37,7 +37,7 @@ public class BoardPanelGroup extends Group {
         addActor(bgImage);
     }
 
-    public void dispose(){
+    public void dispose() {
         bgTexture.dispose();
     }
 

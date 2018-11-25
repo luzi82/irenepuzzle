@@ -1,10 +1,16 @@
 package com.luzi82.irenepuzzle.puzzlescreen;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.luzi82.irenepuzzle.Utils;
 
 public class PiecePanelGroup extends Group {
@@ -45,6 +51,48 @@ public class PiecePanelGroup extends Group {
             pieceImageAry[i].setSize(PIECE_SIZE, PIECE_SIZE);
             pieceImageAry[i].setPosition(PIECE_OFFSET, i + PIECE_OFFSET);
             contextGroup.addActor(pieceImageAry[i]);
+        }
+
+        setBounds(0,0,1,PIECE_PANEL_HEIGHT_RATIO);
+        addListener(new UpDownScroll());
+    }
+
+    class UpDownScroll extends DragListener{
+
+        float dragOffsetY;
+
+        public UpDownScroll(){
+            setTapSquareSize(0.1f);
+        }
+
+        @Override
+        public void dragStart(InputEvent event, float x, float y, int pointer) {
+            super.dragStart(event, x, y, pointer);
+//            Gdx.app.log("",String.format("dragStart %.2f %.2f %d",x,y,pointer));
+//            Gdx.app.log("",String.format("xxx %.2f %.2f",getTouchDownX(),getTouchDownY()));
+            float absDeltaX = Math.abs(x-getTouchDownX());
+            float absDeltaY = Math.abs(y-getTouchDownY());
+
+            if(absDeltaX>absDeltaY){
+                cancel();
+                return;
+            }
+
+            dragOffsetY = contextGroup.getY() - getTouchDownY();
+        }
+
+        @Override
+        public void drag(InputEvent event, float x, float y, int pointer) {
+            super.drag(event, x, y, pointer);
+//            Gdx.app.log("",String.format("drag %.2f %.2f %d",x,y,pointer));
+
+            contextGroup.setY(y+dragOffsetY);
+        }
+
+        @Override
+        public void dragStop(InputEvent event, float x, float y, int pointer) {
+            super.dragStop(event, x, y, pointer);
+//            Gdx.app.log("",String.format("dragStop %.2f %.2f %d",x,y,pointer));
         }
     }
 
