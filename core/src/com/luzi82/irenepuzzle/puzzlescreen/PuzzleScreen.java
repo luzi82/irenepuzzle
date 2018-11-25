@@ -1,4 +1,4 @@
-package com.luzi82.irenepuzzle;
+package com.luzi82.irenepuzzle.puzzlescreen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.luzi82.irenepuzzle.Utils;
 
 public class PuzzleScreen extends ScreenAdapter {
 
