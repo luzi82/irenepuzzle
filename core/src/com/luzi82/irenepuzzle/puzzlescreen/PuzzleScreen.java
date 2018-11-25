@@ -50,7 +50,7 @@ public class PuzzleScreen extends ScreenAdapter {
 
         boardPanelGroup = new BoardPanelGroup(ROW_COUNT, COL_COUNT);
         stage.addActor(boardPanelGroup);
-        piecePanelGroup = new PiecePanelGroup();
+        piecePanelGroup = new PiecePanelGroup(this);
         stage.addActor(piecePanelGroup);
     }
 

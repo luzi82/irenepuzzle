@@ -15,18 +15,40 @@ public class PiecePanelGroup extends Group {
     static public final float GRAY = Utils.PHI - 1;
     static public final Color BG_COLOR = new Color(GRAY, GRAY, GRAY, 1f);
 
+    static public final float PIECE_SIZE = 0.8f;
+    static public final float PIECE_OFFSET = (1-PIECE_SIZE)/2f;
+
+    // link
+    final PuzzleScreen parent;
+
     // member
     Image bgImage;
     Texture bgTexture;
 
-    public PiecePanelGroup() {
+    Group contextGroup;
+    Image[] pieceImageAry;
+
+    public PiecePanelGroup(PuzzleScreen parent) {
+        this.parent = parent;
+
         bgTexture = Utils.createColorTexture(BG_COLOR);
         bgImage = new Image(bgTexture);
         Utils.setSize(bgImage, PIECE_PANEL_WSEN);
         addActor(bgImage);
+
+        contextGroup = new Group();
+        addActor(contextGroup);
+
+        pieceImageAry = new Image[parent.pieceTextureRegionAry.length];
+        for (int i = 0; i < pieceImageAry.length; ++i) {
+            pieceImageAry[i] = new Image(parent.pieceTextureRegionAry[i]);
+            pieceImageAry[i].setSize(PIECE_SIZE,PIECE_SIZE);
+            pieceImageAry[i].setPosition(PIECE_OFFSET,i+PIECE_OFFSET);
+            contextGroup.addActor(pieceImageAry[i]);
+        }
     }
 
-    public void dispose(){
+    public void dispose() {
         bgTexture.dispose();
     }
 
