@@ -19,8 +19,8 @@ public class BoardPanelGroup extends Group {
     static public final Color BG_COLOR = new Color(GRAY, GRAY, GRAY, 1f);
 
     // member
-    Texture boardPanelBackgroundTexture;
-    Image boardPanelBgImage;
+    Texture bgTexture;
+    Image bgImage;
 
     public BoardPanelGroup(int rowCount, int colCount) {
         ROW_COUNT = rowCount;
@@ -28,14 +28,14 @@ public class BoardPanelGroup extends Group {
         BOARD_PANEL_WSEN = new float[]{0, 0, COL_COUNT, ROW_COUNT};
         BOARD_PANEL_WH = Utils.wsenToWh(BOARD_PANEL_WSEN);
 
-        boardPanelBackgroundTexture = Utils.createColorTexture(BG_COLOR);
-        boardPanelBgImage = new Image(boardPanelBackgroundTexture);
-        Utils.setSize(boardPanelBgImage, BOARD_PANEL_WSEN);
-        addActor(boardPanelBgImage);
+        bgTexture = Utils.createColorTexture(BG_COLOR);
+        bgImage = new Image(bgTexture);
+        Utils.setSize(bgImage, BOARD_PANEL_WSEN);
+        addActor(bgImage);
     }
 
     public void dispose(){
-        boardPanelBackgroundTexture.dispose();
+        bgTexture.dispose();
     }
 
 }

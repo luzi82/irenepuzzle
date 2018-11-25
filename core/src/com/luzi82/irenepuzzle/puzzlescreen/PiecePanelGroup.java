@@ -16,18 +16,18 @@ public class PiecePanelGroup extends Group {
     static public final Color BG_COLOR = new Color(GRAY, GRAY, GRAY, 1f);
 
     // member
-    Image piecePanelBgImage;
-    Texture piecePanelBgTexture;
+    Image bgImage;
+    Texture bgTexture;
 
     public PiecePanelGroup() {
-        piecePanelBgTexture = Utils.createColorTexture(BG_COLOR);
-        piecePanelBgImage = new Image(piecePanelBgTexture);
-        Utils.setSize(piecePanelBgImage, PIECE_PANEL_WSEN);
-        addActor(piecePanelBgImage);
+        bgTexture = Utils.createColorTexture(BG_COLOR);
+        bgImage = new Image(bgTexture);
+        Utils.setSize(bgImage, PIECE_PANEL_WSEN);
+        addActor(bgImage);
     }
 
     public void dispose(){
-        piecePanelBgTexture.dispose();
+        bgTexture.dispose();
     }
 
 }
