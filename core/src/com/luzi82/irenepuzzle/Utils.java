@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Utils {
@@ -19,14 +21,24 @@ public class Utils {
         batch.draw(img, wsen[0], wsen[1], wsen[2] - wsen[0], wsen[3] - wsen[1]);
     }
 
-    public static void setSize(Actor actor, float[] wsen) {
-        actor.setPosition(wsen[0], wsen[1]);
-        actor.setScale(wsen[2] - wsen[0], wsen[3] - wsen[1]);
+//    public static void setSize(Actor actor, float[] wsen) {
+//        actor.setPosition(wsen[0], wsen[1]);
+//        actor.setScale(wsen[2] - wsen[0], wsen[3] - wsen[1]);
+//    }
+
+    public static void setSize(Actor actor, Rectangle outerRect) {
+        actor.setPosition(outerRect.x,outerRect.y);
+        actor.setScale(outerRect.width, outerRect.height);
     }
 
-    public static void setSize(Actor actor, float[] wsen, float[] wh) {
-        actor.setPosition(wsen[0], wsen[1]);
-        actor.setScale((wsen[2] - wsen[0]) / wh[0], (wsen[3] - wsen[1]) / wh[1]);
+//    public static void setSize(Actor actor, float[] wsen, float[] wh) {
+//        actor.setPosition(wsen[0], wsen[1]);
+//        actor.setScale((wsen[2] - wsen[0]) / wh[0], (wsen[3] - wsen[1]) / wh[1]);
+//    }
+
+    public static void setSize(Actor actor, Rectangle outerRect, Vector2 innerSize) {
+        actor.setPosition(outerRect.x,outerRect.y);
+        actor.setScale(outerRect.width/innerSize.x, outerRect.height/innerSize.y);
     }
 
     public static void setBounds(Actor actor, float[] wsen) {

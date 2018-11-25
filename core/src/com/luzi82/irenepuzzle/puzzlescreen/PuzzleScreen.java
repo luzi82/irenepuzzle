@@ -5,6 +5,8 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.luzi82.irenepuzzle.Utils;
@@ -17,8 +19,8 @@ public class PuzzleScreen extends ScreenAdapter {
 
     // layout var affected by resize
     boolean sizeGood = false;
-    float[] boardPanelWSEN = new float[4];
-    float[] piecePanelWSEN = new float[4];
+//    float[] boardPanelWSEN = new float[4];
+//    float[] piecePanelWSEN = new float[4];
 
     // stage
     Stage stage;
@@ -58,6 +60,8 @@ public class PuzzleScreen extends ScreenAdapter {
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
 
+        Rectangle boardPanelRect;
+
         //System.out.println(String.format("resize %s %s",width,height));
         float piecePanelWidth = height / 8f;
         float mid = width - piecePanelWidth;
@@ -65,16 +69,19 @@ public class PuzzleScreen extends ScreenAdapter {
         if (!sizeGood) return;
         if (mid / COL_COUNT > height / ROW_COUNT) {
             float boardPanelWidth = height * COL_COUNT / ROW_COUNT;
-            boardPanelWSEN = new float[]{mid - boardPanelWidth, 0, mid, height};
+            boardPanelRect = new Rectangle(mid - boardPanelWidth, 0, boardPanelWidth, height);
         } else {
             float boardPanelHeight = mid * ROW_COUNT / COL_COUNT;
-            boardPanelWSEN = new float[]{0, (height - boardPanelHeight) / 2f, mid, (height + boardPanelHeight) / 2f};
+            boardPanelRect = new Rectangle(0, (height - boardPanelHeight) / 2f, mid, boardPanelHeight);
         }
 
-        piecePanelWSEN = new float[]{mid, 0, width, height};
+//        piecePanelWSEN = new float[]{mid, 0, width, height};
+        Rectangle piecePanelRect = new Rectangle(mid, 0, piecePanelWidth, height);
 
-        Utils.setSize(boardPanelGroup, boardPanelWSEN, boardPanelGroup.BOARD_PANEL_WH);
-        Utils.setSize(piecePanelGroup, piecePanelWSEN, PiecePanelGroup.PIECE_PANEL_WH);
+        Vector2 tmpV2 = new Vector2();
+
+        Utils.setSize(boardPanelGroup, boardPanelRect, boardPanelGroup.INNER_RECT.getSize(tmpV2));
+        Utils.setSize(piecePanelGroup, piecePanelRect, PiecePanelGroup.INNER_RECT.getSize(tmpV2));
     }
 
 
