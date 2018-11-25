@@ -34,4 +34,8 @@ public class BoardPanelGroup extends Group {
         addActor(boardPanelBgImage);
     }
 
+    public void dispose(){
+        boardPanelBackgroundTexture.dispose();
+    }
+
 }

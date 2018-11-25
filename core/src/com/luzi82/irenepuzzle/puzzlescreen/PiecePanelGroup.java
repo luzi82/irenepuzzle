@@ -26,4 +26,8 @@ public class PiecePanelGroup extends Group {
         addActor(piecePanelBgImage);
     }
 
+    public void dispose(){
+        piecePanelBgTexture.dispose();
+    }
+
 }

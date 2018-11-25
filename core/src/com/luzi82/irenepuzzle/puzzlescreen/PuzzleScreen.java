@@ -89,6 +89,9 @@ public class PuzzleScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
+        boardPanelGroup.dispose();
+        piecePanelGroup.dispose();
+        puzzleImage.dispose();
         stage.dispose();
     }
 
