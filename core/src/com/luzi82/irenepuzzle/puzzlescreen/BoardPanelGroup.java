@@ -2,7 +2,6 @@ package com.luzi82.irenepuzzle.puzzlescreen;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.luzi82.irenepuzzle.Utils;
@@ -23,7 +22,7 @@ public class BoardPanelGroup extends Group {
     Texture boardPanelBackgroundTexture;
     Image boardPanelBgImage;
 
-    public BoardPanelGroup(int rowCount,int colCount){
+    public BoardPanelGroup(int rowCount, int colCount) {
         ROW_COUNT = rowCount;
         COL_COUNT = colCount;
         BOARD_PANEL_WSEN = new float[]{0, 0, COL_COUNT, ROW_COUNT};

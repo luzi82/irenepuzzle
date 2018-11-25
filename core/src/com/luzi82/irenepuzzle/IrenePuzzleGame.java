@@ -5,13 +5,13 @@ import com.luzi82.irenepuzzle.puzzlescreen.PuzzleScreen;
 
 public class IrenePuzzleGame extends Game {
 
-	@Override
-	public void create () {
-		setScreen(new PuzzleScreen());
-	}
+    @Override
+    public void create() {
+        setScreen(new PuzzleScreen());
+    }
 
-	@Override
-	public void dispose () {
-		super.dispose();
-	}
+    @Override
+    public void dispose() {
+        super.dispose();
+    }
 }
