@@ -51,6 +51,7 @@ public class PiecePanelGroup extends Group {
 
         setBounds(0, 0, 1, PIECE_PANEL_HEIGHT_RATIO);
         addListener(new UpDownScroll());
+        contextGroup.addListener(parent.pieceDragLayerGroup.newPiecePanelTakePieceOut());
     }
 
     class UpDownScroll extends DragListener {

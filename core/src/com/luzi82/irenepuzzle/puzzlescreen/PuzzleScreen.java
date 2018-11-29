@@ -19,8 +19,7 @@ public class PuzzleScreen extends ScreenAdapter {
 
     // layout var affected by resize
     boolean sizeGood = false;
-//    float[] boardPanelWSEN = new float[4];
-//    float[] piecePanelWSEN = new float[4];
+    float boardPieceSize = 0;
 
     // stage
     Stage stage;
@@ -30,6 +29,9 @@ public class PuzzleScreen extends ScreenAdapter {
 
     Texture puzzleImage;
     TextureRegion[] pieceTextureRegionAry;
+
+    // actions
+    PieceDragLayerGroup pieceDragLayerGroup;
 
     @Override
     public void show() {
@@ -50,19 +52,22 @@ public class PuzzleScreen extends ScreenAdapter {
             }
         }
 
+        pieceDragLayerGroup =new PieceDragLayerGroup(this);
         boardPanelGroup = new BoardPanelGroup(ROW_COUNT, COL_COUNT);
-        stage.addActor(boardPanelGroup);
         piecePanelGroup = new PiecePanelGroup(this);
+
+        stage.addActor(boardPanelGroup);
         stage.addActor(piecePanelGroup);
+        stage.addActor(pieceDragLayerGroup);
     }
 
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
 
-        Rectangle boardPanelRect;
+        Rectangle fullRect = new Rectangle(0,0,width,height);
 
-        //System.out.println(String.format("resize %s %s",width,height));
+        Rectangle boardPanelRect;
         float piecePanelWidth = height / 8f;
         float mid = width - piecePanelWidth;
         sizeGood = mid > 0;
@@ -74,12 +79,14 @@ public class PuzzleScreen extends ScreenAdapter {
             float boardPanelHeight = mid * ROW_COUNT / COL_COUNT;
             boardPanelRect = new Rectangle(0, (height - boardPanelHeight) / 2f, mid, boardPanelHeight);
         }
+        boardPieceSize = Math.min(mid / COL_COUNT, height / ROW_COUNT);
 
 //        piecePanelWSEN = new float[]{mid, 0, width, height};
         Rectangle piecePanelRect = new Rectangle(mid, 0, piecePanelWidth, height);
 
         Vector2 tmpV2 = new Vector2();
 
+        Utils.setSize(pieceDragLayerGroup, fullRect, fullRect.getSize(tmpV2));
         Utils.setSize(boardPanelGroup, boardPanelRect, boardPanelGroup.INNER_RECT.getSize(tmpV2));
         Utils.setSize(piecePanelGroup, piecePanelRect, PiecePanelGroup.INNER_RECT.getSize(tmpV2));
     }
