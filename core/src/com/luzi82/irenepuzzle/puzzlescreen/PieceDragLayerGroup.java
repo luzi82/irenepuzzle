@@ -23,6 +23,8 @@ public class PieceDragLayerGroup extends Group {
 
     class PiecePanelTakePieceOut extends DragListener {
 
+        int pieceIdx;
+
         public PiecePanelTakePieceOut() {
             setTapSquareSize(0.1f);
         }
@@ -39,7 +41,7 @@ public class PieceDragLayerGroup extends Group {
                 return;
             }
 
-            int pieceIdx = (int) Math.floor(y);
+            pieceIdx = (int) Math.floor(y);
 
             Gdx.app.log("", "" + pieceIdx);
             if (pieceIdx < 0) {
@@ -58,6 +60,26 @@ public class PieceDragLayerGroup extends Group {
         @Override
         public void drag(InputEvent event, float x, float y, int pointer) {
             setImagePosition(new Vector2(event.getStageX(),event.getStageY()));
+        }
+
+        @Override
+        public void dragStop(InputEvent event, float x, float y, int pointer) {
+            resetImage(-1);
+            Vector2 stageXY = new Vector2(event.getStageX(),event.getStageY());
+            Vector2 boardXY = parent.boardPanelGroup.stageToLocalCoordinates(stageXY);
+            int boardX = (int)boardXY.x;
+            int boardY = (int)boardXY.y;
+            boolean boardXYInRect = true;
+            boardXYInRect = boardXYInRect && (boardX>=0);
+            boardXYInRect = boardXYInRect && (boardY>=0);
+            boardXYInRect = boardXYInRect && (boardX<parent.boardPanelGroup.COL_COUNT);
+            boardXYInRect = boardXYInRect && (boardY<parent.boardPanelGroup.ROW_COUNT);
+            if(!boardXYInRect){
+                cancel();
+                return;
+            }
+            Image pieceImage = parent.boardPanelGroup.createGetPieceImage(pieceIdx);
+            pieceImage.setPosition(boardX,boardY);
         }
     }
 
