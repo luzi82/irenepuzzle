@@ -87,9 +87,9 @@ public class PieceDragLayerGroup extends Group {
             Image pieceImage = parent.boardPanelGroup.createGetPieceImage(pieceIdx);
             pieceImage.setPosition(boardX,boardY);
             parent.pieceXYAry[pieceIdx] = new int[]{boardX,boardY};
-            if(parent.isPuzzleComplete()){
+            //if(parent.isPuzzleComplete()){
                 parent.onPuzzleComplete();
-            }
+            //}
         }
     }
 

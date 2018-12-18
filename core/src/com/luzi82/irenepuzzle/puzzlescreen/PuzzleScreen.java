@@ -53,7 +53,8 @@ public class PuzzleScreen extends ScreenAdapter {
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
-        puzzleImage = new Texture("badlogic.jpg");
+        //puzzleImage = new Texture("badlogic.jpg");
+        puzzleImage = new Texture(Gdx.files.internal("badlogic.jpg"));
         pieceTextureRegionAry = new TextureRegion[ROW_COUNT * COL_COUNT];
         int i = 0;
         for (int r = 0; r < ROW_COUNT; ++r) {
