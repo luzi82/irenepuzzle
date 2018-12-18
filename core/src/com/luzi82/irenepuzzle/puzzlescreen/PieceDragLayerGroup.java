@@ -17,15 +17,15 @@ public class PieceDragLayerGroup extends Group {
         this.parent = parent;
     }
 
-    PiecePanelTakePieceOut newPiecePanelTakePieceOut() {
-        return new PiecePanelTakePieceOut();
+    PiecePanelDragPiece newPiecePanelTakePieceOut() {
+        return new PiecePanelDragPiece();
     }
 
-    class PiecePanelTakePieceOut extends DragListener {
+    class PiecePanelDragPiece extends DragListener {
 
         int pieceIdx;
 
-        public PiecePanelTakePieceOut() {
+        public PiecePanelDragPiece() {
             setTapSquareSize(0.1f);
         }
 
