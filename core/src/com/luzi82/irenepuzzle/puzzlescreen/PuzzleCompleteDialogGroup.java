@@ -58,6 +58,7 @@ public class PuzzleCompleteDialogGroup extends Group {
     public void dispose(){
         if(bgTexture!=null) {
             bgTexture.dispose();
+            bgTexture = null;
         }
     }
 
