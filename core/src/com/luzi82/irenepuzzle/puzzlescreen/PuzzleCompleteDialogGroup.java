@@ -23,6 +23,8 @@ public class PuzzleCompleteDialogGroup extends Group {
 
     public PuzzleCompleteDialogGroup(PuzzleScreen parent) {
         this.parent = parent;
+
+        bgTexture = Utils.createColorTexture(BG_COLOR);
     }
 
     public void onParentResize(int parentWidth, int parentHeight){
@@ -43,14 +45,20 @@ public class PuzzleCompleteDialogGroup extends Group {
     }
 
     public void setEnable(boolean enable){
-        bgTexture = Utils.createColorTexture(BG_COLOR);
-        bgImage = new Image(bgTexture);
-        Utils.setSize(bgImage, INNER_RECT);
-        addActor(bgImage);
+        if(enable&&(bgImage==null)) {
+            bgImage = new Image(bgTexture);
+            Utils.setSize(bgImage, INNER_RECT);
+            addActor(bgImage);
+        }else if((!enable)&&(bgImage!=null)){
+            removeActor(bgImage);
+            bgImage = null;
+        }
     }
 
     public void dispose(){
-        bgTexture.dispose();
+        if(bgTexture!=null) {
+            bgTexture.dispose();
+        }
     }
 
 }
