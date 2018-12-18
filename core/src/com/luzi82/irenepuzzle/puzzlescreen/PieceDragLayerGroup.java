@@ -33,6 +33,12 @@ public class PieceDragLayerGroup extends Group {
         public void dragStart(InputEvent event, float x, float y, int pointer) {
             // Gdx.app.log("asdf", "asdf");
             super.dragStart(event, x, y, pointer);
+
+            if(parent.state!=PuzzleScreen.State.PLAY){
+                cancel();
+                return;
+            }
+
             float absDeltaX = Math.abs(x - getTouchDownX());
             float absDeltaY = Math.abs(y - getTouchDownY());
 

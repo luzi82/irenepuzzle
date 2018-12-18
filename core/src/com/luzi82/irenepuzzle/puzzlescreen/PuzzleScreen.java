@@ -14,8 +14,8 @@ import com.luzi82.irenepuzzle.Utils;
 public class PuzzleScreen extends ScreenAdapter {
 
     // const
-    static final int ROW_COUNT = 3;
-    static final int COL_COUNT = 4;
+    static final int ROW_COUNT = 2;
+    static final int COL_COUNT = 2;
 
     // layout var affected by resize
     boolean sizeGood = false;
@@ -36,7 +36,14 @@ public class PuzzleScreen extends ScreenAdapter {
     // member
     public int[][] pieceXYAry; // idx: piece-id, xy. dev temp var
 
+    public enum State{
+        PLAY,
+        COMPLETE
+    }
+    public State state;
+
     public PuzzleScreen(){
+        state = State.PLAY;
         pieceXYAry = new int[ROW_COUNT*COL_COUNT][];
     }
 
@@ -130,6 +137,7 @@ public class PuzzleScreen extends ScreenAdapter {
 
     public void onPuzzleComplete(){
         Gdx.app.log("","FZTCOITZJJ onPuzzleComplete");
+        state = State.COMPLETE;
     }
 
 }
