@@ -24,6 +24,7 @@ public class PuzzleScreen extends ScreenAdapter {
     // stage
     Stage stage;
 
+    PuzzleCompleteDialogGroup puzzleCompleteDialogGroup;
     BoardPanelGroup boardPanelGroup;
     PiecePanelGroup piecePanelGroup;
 
@@ -69,10 +70,12 @@ public class PuzzleScreen extends ScreenAdapter {
         pieceDragLayerGroup =new PieceDragLayerGroup(this);
         boardPanelGroup = new BoardPanelGroup(this, ROW_COUNT, COL_COUNT);
         piecePanelGroup = new PiecePanelGroup(this);
+        puzzleCompleteDialogGroup = new PuzzleCompleteDialogGroup(this);
 
         stage.addActor(boardPanelGroup);
         stage.addActor(piecePanelGroup);
         stage.addActor(pieceDragLayerGroup);
+        stage.addActor(puzzleCompleteDialogGroup);
     }
 
     @Override
@@ -98,11 +101,15 @@ public class PuzzleScreen extends ScreenAdapter {
 //        piecePanelWSEN = new float[]{mid, 0, width, height};
         Rectangle piecePanelRect = new Rectangle(mid, 0, piecePanelWidth, height);
 
+
+
         Vector2 tmpV2 = new Vector2();
 
         Utils.setSize(pieceDragLayerGroup, fullRect, fullRect.getSize(tmpV2));
         Utils.setSize(boardPanelGroup, boardPanelRect, boardPanelGroup.INNER_RECT.getSize(tmpV2));
         Utils.setSize(piecePanelGroup, piecePanelRect, PiecePanelGroup.INNER_RECT.getSize(tmpV2));
+
+        puzzleCompleteDialogGroup.onParentResize(width, height);
     }
 
 
@@ -117,6 +124,7 @@ public class PuzzleScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
+        puzzleCompleteDialogGroup.dispose();
         boardPanelGroup.dispose();
         piecePanelGroup.dispose();
         puzzleImage.dispose();
@@ -138,6 +146,7 @@ public class PuzzleScreen extends ScreenAdapter {
     public void onPuzzleComplete(){
         Gdx.app.log("","FZTCOITZJJ onPuzzleComplete");
         state = State.COMPLETE;
+        puzzleCompleteDialogGroup.setEnable(true);
     }
 
 }
