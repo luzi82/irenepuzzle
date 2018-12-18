@@ -101,8 +101,6 @@ public class PuzzleScreen extends ScreenAdapter {
 //        piecePanelWSEN = new float[]{mid, 0, width, height};
         Rectangle piecePanelRect = new Rectangle(mid, 0, piecePanelWidth, height);
 
-
-
         Vector2 tmpV2 = new Vector2();
 
         Utils.setSize(pieceDragLayerGroup, fullRect, fullRect.getSize(tmpV2));
