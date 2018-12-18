@@ -27,7 +27,7 @@ public class BoardPanelGroup extends Group {
     Texture bgTexture;
     Image bgImage;
     Group pieceImageGroup;
-    public Image[] pieceImageAry; // idx: piece id
+    public Image[] pieceImageAry; // idx: piece-id
 
     public BoardPanelGroup(PuzzleScreen parent, int rowCount, int colCount) {
         this.parent = parent;

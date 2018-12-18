@@ -14,8 +14,8 @@ import com.luzi82.irenepuzzle.Utils;
 public class PuzzleScreen extends ScreenAdapter {
 
     // const
-    static final int ROW_COUNT = 6;
-    static final int COL_COUNT = 8;
+    static final int ROW_COUNT = 3;
+    static final int COL_COUNT = 4;
 
     // layout var affected by resize
     boolean sizeGood = false;
@@ -32,6 +32,13 @@ public class PuzzleScreen extends ScreenAdapter {
 
     // actions
     PieceDragLayerGroup pieceDragLayerGroup;
+
+    // member
+    public int[][] pieceXYAry; // idx: piece-id, xy. dev temp var
+
+    public PuzzleScreen(){
+        pieceXYAry = new int[ROW_COUNT*COL_COUNT][];
+    }
 
     @Override
     public void show() {
@@ -107,6 +114,22 @@ public class PuzzleScreen extends ScreenAdapter {
         piecePanelGroup.dispose();
         puzzleImage.dispose();
         stage.dispose();
+    }
+
+    public boolean isPuzzleComplete() {
+        for(int i=0;i<ROW_COUNT*COL_COUNT;++i){
+            if(pieceXYAry[i]==null)return false;
+            int x = pieceXYAry[i][0]; int y = pieceXYAry[i][1];
+            int tx = i%COL_COUNT; int ty = (ROW_COUNT-1-i/COL_COUNT);
+            // Gdx.app.log("",String.format("CTXLIQOEXF xy=%d,%d txy=%d,%d",x,y,tx,ty));
+            if(x!=tx)return false;
+            if(y!=ty)return false;
+        }
+        return true;
+    }
+
+    public void onPuzzleComplete(){
+        Gdx.app.log("","FZTCOITZJJ onPuzzleComplete");
     }
 
 }

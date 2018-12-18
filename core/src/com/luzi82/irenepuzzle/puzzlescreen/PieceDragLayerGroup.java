@@ -31,7 +31,7 @@ public class PieceDragLayerGroup extends Group {
 
         @Override
         public void dragStart(InputEvent event, float x, float y, int pointer) {
-            Gdx.app.log("asdf", "asdf");
+            // Gdx.app.log("asdf", "asdf");
             super.dragStart(event, x, y, pointer);
             float absDeltaX = Math.abs(x - getTouchDownX());
             float absDeltaY = Math.abs(y - getTouchDownY());
@@ -43,7 +43,7 @@ public class PieceDragLayerGroup extends Group {
 
             pieceIdx = (int) Math.floor(y);
 
-            Gdx.app.log("", "" + pieceIdx);
+            // Gdx.app.log("", "" + pieceIdx);
             if (pieceIdx < 0) {
                 cancel();
                 return;
@@ -80,6 +80,10 @@ public class PieceDragLayerGroup extends Group {
             }
             Image pieceImage = parent.boardPanelGroup.createGetPieceImage(pieceIdx);
             pieceImage.setPosition(boardX,boardY);
+            parent.pieceXYAry[pieceIdx] = new int[]{boardX,boardY};
+            if(parent.isPuzzleComplete()){
+                parent.onPuzzleComplete();
+            }
         }
     }
 
