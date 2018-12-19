@@ -10,6 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 
+import java.util.HashSet;
+
 public class OneLineLabel extends Group {
 
     // setting
@@ -18,7 +20,7 @@ public class OneLineLabel extends Group {
     CharSequence text;
 
     int fontSizeMin = 8;
-    int fontSizeMax = 128;
+    int fontSizeMax = 256;
 
     // dynamic
     int fontHeightPt = -1;
@@ -105,9 +107,18 @@ public class OneLineLabel extends Group {
         if(fontHeightPt<=0)return;
 
         Gdx.app.log("HUEDGZBEGD", String.format("fontHeightPt=%d",fontHeightPt));
+        HashSet<Character> charSet = new HashSet<Character>();
+        for(int i=0;i<text.length();++i){
+            charSet.add(text.charAt(i));
+        }
+        StringBuilder charsetSb=new StringBuilder();
+        for(Character c:charSet){
+            charsetSb.append(c);
+        }
 
         FreeTypeFontGenerator.FreeTypeFontParameter fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         fontParameter.size = fontHeightPt;
+        fontParameter.characters = charsetSb.toString();
         labelFont = freeTypeFontGenerator.generateFont(fontParameter);
 
         float fontHeight = labelFont.getLineHeight();

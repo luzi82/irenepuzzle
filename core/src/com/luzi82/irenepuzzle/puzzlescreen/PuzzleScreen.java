@@ -15,8 +15,8 @@ import com.luzi82.irenepuzzle.Utils;
 public class PuzzleScreen extends ScreenAdapter {
 
     // const
-    static final int ROW_COUNT = 3;
-    static final int COL_COUNT = 4;
+    static final int ROW_COUNT = 1;
+    static final int COL_COUNT = 1;
 
     // layout var affected by resize
     boolean sizeGood = false;
