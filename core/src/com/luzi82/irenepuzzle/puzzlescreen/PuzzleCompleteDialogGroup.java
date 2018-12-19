@@ -11,6 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
+import com.luzi82.gdx.OneLineLabel;
+import com.luzi82.irenepuzzle.IrenePuzzleGame;
 import com.luzi82.irenepuzzle.Utils;
 
 public class PuzzleCompleteDialogGroup extends Group {
@@ -25,23 +27,16 @@ public class PuzzleCompleteDialogGroup extends Group {
     // member
     Image bgImage;
     Texture bgTexture;
-    Label label;
-    BitmapFont labelFont;
+    OneLineLabel label;
 
 
     public PuzzleCompleteDialogGroup(PuzzleScreen parent) {
         this.parent = parent;
 
         bgTexture = Utils.createColorTexture(BG_COLOR);
-
-        FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("DroidSansFallback.ttf"));
-        //FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Amble-Light.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        fontParameter.size = 16;
-        labelFont = fontGenerator.generateFont(fontParameter);
-        fontGenerator.dispose();
     }
 
+    // func own by PuzzleScreen
     public void onParentResize(int parentWidth, int parentHeight){
         float myWidth = parentWidth / Utils.PHI;
         float myHeight = parentHeight / Utils.PHI;
@@ -65,20 +60,19 @@ public class PuzzleCompleteDialogGroup extends Group {
             Utils.setSize(bgImage, INNER_RECT);
             addActor(bgImage);
 
-            Label.LabelStyle labelStyle = new Label.LabelStyle();
-            labelStyle.font = labelFont;
-            label = new Label("HelloWorld",labelStyle);
-            //label.setPosition(0,0);
-            label.setSize(0.01f,(Utils.PHI-1)*0.01f);
-            //label.setFontScale(0.01f);
+            label = new OneLineLabel();
+            label.setFreeTypeFontGenerator(IrenePuzzleGame.getInstance().fontGenerator);
+            label.setText("Finish");
+            label.setPosition(0.5f,INNER_RECT.height/3f);
+            label.setScale(INNER_RECT.height/3f);
             label.setAlignment(Align.center);
-            //Utils.setSize(label,INNER_RECT);
             addActor(label);
         }else if((!enable)&&(bgImage!=null)){
             removeActor(bgImage);
             bgImage = null;
 
             removeActor(label);
+            label.dispose();
             label = null;
         }
     }
@@ -88,9 +82,9 @@ public class PuzzleCompleteDialogGroup extends Group {
             bgTexture.dispose();
             bgTexture = null;
         }
-        if(labelFont!=null){
-            labelFont.dispose();
-            labelFont=null;
+        if(label!=null){
+            label.dispose();
+            label = null;
         }
     }
 

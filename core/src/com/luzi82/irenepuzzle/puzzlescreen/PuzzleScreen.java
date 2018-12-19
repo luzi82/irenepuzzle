@@ -9,13 +9,14 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.luzi82.irenepuzzle.IrenePuzzleGame;
 import com.luzi82.irenepuzzle.Utils;
 
 public class PuzzleScreen extends ScreenAdapter {
 
     // const
-    static final int ROW_COUNT = 2;
-    static final int COL_COUNT = 2;
+    static final int ROW_COUNT = 3;
+    static final int COL_COUNT = 4;
 
     // layout var affected by resize
     boolean sizeGood = false;
