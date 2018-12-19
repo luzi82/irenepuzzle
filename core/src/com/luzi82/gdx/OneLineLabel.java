@@ -77,17 +77,17 @@ public class OneLineLabel extends Group {
         change = change || ( OneLineLabel.this.fontHeightPt > fontHeightPt*2 );
         change = change || ( OneLineLabel.this.fontHeightPt < fontHeightPt );
 
-        if(change){
-            fontHeightPt = (int)Math.ceil(fontHeightPt*SQRT2);
-            fontHeightPt = Math.max(fontHeightPt, fontSizeMin);
-            fontHeightPt = Math.min(fontHeightPt, fontSizeMax);
-            change = (fontHeightPt!=OneLineLabel.this.fontHeightPt);
-        }
+        if(!change)return;
 
-        if(change){
-            OneLineLabel.this.fontHeightPt = fontHeightPt;
-            updateLabel();
-        }
+        fontHeightPt = (int)Math.ceil(fontHeightPt*SQRT2);
+        fontHeightPt = Math.max(fontHeightPt, fontSizeMin);
+        fontHeightPt = Math.min(fontHeightPt, fontSizeMax);
+        change = (fontHeightPt!=OneLineLabel.this.fontHeightPt);
+
+        if(!change)return;
+
+        OneLineLabel.this.fontHeightPt = fontHeightPt;
+        updateLabel();
     }
 
     void updateLabel(){
