@@ -18,7 +18,7 @@ public class OneLineLabel extends Group {
     CharSequence text;
 
     int fontSizeMin = 8;
-    int fontSizeMax = 256;
+    int fontSizeMax = 128;
 
     // dynamic
     int fontHeightPt = -1;
