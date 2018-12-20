@@ -3,6 +3,7 @@ package com.luzi82.irenepuzzle;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.luzi82.irenepuzzle.menuscreen.MenuScreen;
 import com.luzi82.irenepuzzle.puzzlescreen.PuzzleScreen;
 
 public class IrenePuzzleGame extends Game {
@@ -12,7 +13,7 @@ public class IrenePuzzleGame extends Game {
     @Override
     public void create() {
         fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("DroidSansFallback.ttf"));
-        setScreen(new PuzzleScreen());
+        setScreen(new MenuScreen());
     }
 
     @Override
