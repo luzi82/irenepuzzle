@@ -31,8 +31,6 @@ public class MenuScreen extends ScreenAdapter {
 
     @Override
     public void show(){
-        Gdx.app.log("",""+SPACE);
-
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
@@ -57,7 +55,16 @@ public class MenuScreen extends ScreenAdapter {
         ib1.setRound(false);
         table.add(ib1);
 
-        //table.row();
+        table.row();
+
+        ImageButton ib2 = new ImageButton(new TextureRegionDrawable(new TextureRegion(texture)));
+        ib2.setRound(false);
+        table.add(ib2);
+
+        ImageButton ib3 = new ImageButton(new TextureRegionDrawable(new TextureRegion(texture)));
+        ib3.setRound(false);
+        table.add(ib3);
+
     }
 
     @Override
