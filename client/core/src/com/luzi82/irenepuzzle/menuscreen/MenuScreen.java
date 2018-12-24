@@ -17,6 +17,11 @@ import com.luzi82.irenepuzzle.Utils;
 
 public class MenuScreen extends ScreenAdapter {
 
+    // const
+    public static final float BOADER = (float)((1-Math.sqrt(Utils.PHI-1))/2);
+    public static final float SPACE = BOADER;
+    public static final float INNER_WIDTH = 2*BOADER+SPACE+2;
+
     Stage stage;
 
     Group rootGroup;
@@ -26,6 +31,8 @@ public class MenuScreen extends ScreenAdapter {
 
     @Override
     public void show(){
+        Gdx.app.log("",""+SPACE);
+
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
@@ -38,7 +45,7 @@ public class MenuScreen extends ScreenAdapter {
         table.setRound(false);
         table.setDebug(true);
 
-        table.defaults().width(1f).height(1f).space(0.5f);
+        table.defaults().width(1f).height(1f).space(SPACE);
 
         texture = new Texture(Gdx.files.internal("badlogic.jpg"));
 
@@ -59,8 +66,8 @@ public class MenuScreen extends ScreenAdapter {
 
         Rectangle fullRect = new Rectangle(0,0,width,height);
 
-        Utils.setSize(rootGroup, fullRect, new Vector2(3.5f, 3.5f*height/width));
-        rootGroup.setBounds(0,0,3.5f,3.5f*height/width);
+        Utils.setSize(rootGroup, fullRect, new Vector2(INNER_WIDTH, INNER_WIDTH*height/width));
+        rootGroup.setBounds(0,0,INNER_WIDTH,INNER_WIDTH*height/width);
     }
 
         @Override
