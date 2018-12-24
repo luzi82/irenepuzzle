@@ -9,7 +9,9 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -24,7 +26,8 @@ public class MenuScreen extends ScreenAdapter {
 
     Stage stage;
 
-    Group rootGroup;
+    ScrollPane scrollPane;
+    Group tableScale;
     Table table;
 
     Texture texture;
@@ -34,47 +37,71 @@ public class MenuScreen extends ScreenAdapter {
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
-        rootGroup = new Group();
-        stage.addActor(rootGroup);
-
-        table = new Table();
-        rootGroup.addActor(table);
-        table.setFillParent(true);
-        table.setRound(false);
-        table.setDebug(true);
-
-        table.defaults().width(1f).height(1f).space(SPACE);
+//        rootGroup = new Group();
+//        stage.addActor(rootGroup);
 
         texture = new Texture(Gdx.files.internal("badlogic.jpg"));
 
-        ImageButton ib0 = new ImageButton(new TextureRegionDrawable(new TextureRegion(texture)));
-        ib0.setRound(false);
-        table.add(ib0);
+//        table = new Table();
+//        table.setRound(false);
+//        table.setDebug(true);
+//
+//        table.defaults().width(1f).height(1f).space(SPACE);
+//        // table.setBounds(0,0,INNER_WIDTH,2*BOADER+SPACE+2);
+//
+//        texture = new Texture(Gdx.files.internal("badlogic.jpg"));
+//
+//        ImageButton ib0 = new ImageButton(new TextureRegionDrawable(new TextureRegion(texture)));
+//        ib0.setRound(false);
+//        table.add(ib0);
+//
+//        ImageButton ib1 = new ImageButton(new TextureRegionDrawable(new TextureRegion(texture)));
+//        ib1.setRound(false);
+//        table.add(ib1);
+//
+//        table.row();
+//
+//        ImageButton ib2 = new ImageButton(new TextureRegionDrawable(new TextureRegion(texture)));
+//        ib2.setRound(false);
+//        table.add(ib2);
+//
+//        ImageButton ib3 = new ImageButton(new TextureRegionDrawable(new TextureRegion(texture)));
+//        ib3.setRound(false);
+//        table.add(ib3);
 
-        ImageButton ib1 = new ImageButton(new TextureRegionDrawable(new TextureRegion(texture)));
-        ib1.setRound(false);
-        table.add(ib1);
+        Image img = new Image(new TextureRegionDrawable(new TextureRegion(texture)));
+        img.setSize(300,300);
+        //img.setSize(600,600);
 
-        table.row();
+        tableScale = new Group();
+        tableScale.addActor(img);
+        //tableScale.setBounds(0,0,600,600);
 
-        ImageButton ib2 = new ImageButton(new TextureRegionDrawable(new TextureRegion(texture)));
-        ib2.setRound(false);
-        table.add(ib2);
+        scrollPane = new ScrollPane(tableScale);
+        scrollPane.setDebug(true,true);
+        scrollPane.layout();
+        scrollPane.setScrollingDisabled(true, false);
+        scrollPane.setFillParent(true);
+        scrollPane.setLayoutEnabled(true);
 
-        ImageButton ib3 = new ImageButton(new TextureRegionDrawable(new TextureRegion(texture)));
-        ib3.setRound(false);
-        table.add(ib3);
-
+        stage.addActor(scrollPane);
     }
 
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
 
-        Rectangle fullRect = new Rectangle(0,0,width,height);
+        //tableScale.setScale(width/INNER_WIDTH);
+        tableScale.setScale(2);
+        //tableScale.setBounds(0,0,width,width);
+        //tableScale.setBounds(0,0,300,300);
+        tableScale.setBounds(0,0,600,600);
+        //tableScale.setCullingArea(new Rectangle(0,0,600,600));
 
-        Utils.setSize(rootGroup, fullRect, new Vector2(INNER_WIDTH, INNER_WIDTH*height/width));
-        rootGroup.setBounds(0,0,INNER_WIDTH,INNER_WIDTH*height/width);
+        //Rectangle fullRect = new Rectangle(0,0,width,height);
+
+        //Utils.setSize(rootGroup, fullRect, new Vector2(INNER_WIDTH, INNER_WIDTH*height/width));
+        //rootGroup.setBounds(0,0,INNER_WIDTH,INNER_WIDTH*height/width);
     }
 
         @Override
