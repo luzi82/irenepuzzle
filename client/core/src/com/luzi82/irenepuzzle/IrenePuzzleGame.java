@@ -4,7 +4,6 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.luzi82.irenepuzzle.menuscreen.MenuScreen;
-import com.luzi82.irenepuzzle.puzzlescreen.PuzzleScreen;
 
 public class IrenePuzzleGame extends Game {
 
@@ -19,13 +18,13 @@ public class IrenePuzzleGame extends Game {
     @Override
     public void dispose() {
         super.dispose();
-        if(fontGenerator!=null){
+        if (fontGenerator != null) {
             fontGenerator.dispose();
-            fontGenerator=null;
+            fontGenerator = null;
         }
     }
 
-    static public IrenePuzzleGame getInstance(){
-        return (IrenePuzzleGame)Gdx.app.getApplicationListener();
+    static public IrenePuzzleGame getInstance() {
+        return (IrenePuzzleGame) Gdx.app.getApplicationListener();
     }
 }

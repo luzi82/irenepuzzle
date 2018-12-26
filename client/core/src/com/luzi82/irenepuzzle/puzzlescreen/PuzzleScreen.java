@@ -9,7 +9,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.luzi82.irenepuzzle.IrenePuzzleGame;
 import com.luzi82.irenepuzzle.Utils;
 
 public class PuzzleScreen extends ScreenAdapter {
@@ -38,15 +37,16 @@ public class PuzzleScreen extends ScreenAdapter {
     // member
     public int[][] pieceXYAry; // idx: piece-id, xy. dev temp var
 
-    public enum State{
+    public enum State {
         PLAY,
         COMPLETE
     }
+
     public State state;
 
-    public PuzzleScreen(){
+    public PuzzleScreen() {
         state = State.PLAY;
-        pieceXYAry = new int[ROW_COUNT*COL_COUNT][];
+        pieceXYAry = new int[ROW_COUNT * COL_COUNT][];
     }
 
     @Override
@@ -69,7 +69,7 @@ public class PuzzleScreen extends ScreenAdapter {
             }
         }
 
-        pieceDragLayerGroup =new PieceDragLayerGroup(this);
+        pieceDragLayerGroup = new PieceDragLayerGroup(this);
         boardPanelGroup = new BoardPanelGroup(this, ROW_COUNT, COL_COUNT);
         piecePanelGroup = new PiecePanelGroup(this);
         puzzleCompleteDialogGroup = new PuzzleCompleteDialogGroup(this);
@@ -84,7 +84,7 @@ public class PuzzleScreen extends ScreenAdapter {
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
 
-        Rectangle fullRect = new Rectangle(0,0,width,height);
+        Rectangle fullRect = new Rectangle(0, 0, width, height);
 
         Rectangle boardPanelRect;
         float piecePanelWidth = height / 8f;
@@ -132,19 +132,21 @@ public class PuzzleScreen extends ScreenAdapter {
     }
 
     public boolean isPuzzleComplete() {
-        for(int i=0;i<ROW_COUNT*COL_COUNT;++i){
-            if(pieceXYAry[i]==null)return false;
-            int x = pieceXYAry[i][0]; int y = pieceXYAry[i][1];
-            int tx = i%COL_COUNT; int ty = (ROW_COUNT-1-i/COL_COUNT);
+        for (int i = 0; i < ROW_COUNT * COL_COUNT; ++i) {
+            if (pieceXYAry[i] == null) return false;
+            int x = pieceXYAry[i][0];
+            int y = pieceXYAry[i][1];
+            int tx = i % COL_COUNT;
+            int ty = (ROW_COUNT - 1 - i / COL_COUNT);
             // Gdx.app.log("",String.format("CTXLIQOEXF xy=%d,%d txy=%d,%d",x,y,tx,ty));
-            if(x!=tx)return false;
-            if(y!=ty)return false;
+            if (x != tx) return false;
+            if (y != ty) return false;
         }
         return true;
     }
 
-    public void onPuzzleComplete(){
-        Gdx.app.log("","FZTCOITZJJ onPuzzleComplete");
+    public void onPuzzleComplete() {
+        Gdx.app.log("", "FZTCOITZJJ onPuzzleComplete");
         state = State.COMPLETE;
         puzzleCompleteDialogGroup.setEnable(true);
     }

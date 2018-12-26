@@ -66,7 +66,7 @@ public class PiecePanelGroup extends Group {
         public void dragStart(InputEvent event, float x, float y, int pointer) {
             super.dragStart(event, x, y, pointer);
 
-            if(parent.state!=PuzzleScreen.State.PLAY){
+            if (parent.state != PuzzleScreen.State.PLAY) {
                 cancel();
                 return;
             }

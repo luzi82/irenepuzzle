@@ -34,7 +34,7 @@ public class PieceDragLayerGroup extends Group {
             // Gdx.app.log("asdf", "asdf");
             super.dragStart(event, x, y, pointer);
 
-            if(parent.state!=PuzzleScreen.State.PLAY){
+            if (parent.state != PuzzleScreen.State.PLAY) {
                 cancel();
                 return;
             }
@@ -60,61 +60,61 @@ public class PieceDragLayerGroup extends Group {
             }
 
             resetImage(pieceIdx);
-            setImagePosition(new Vector2(event.getStageX(),event.getStageY()));
+            setImagePosition(new Vector2(event.getStageX(), event.getStageY()));
         }
 
         @Override
         public void drag(InputEvent event, float x, float y, int pointer) {
-            setImagePosition(new Vector2(event.getStageX(),event.getStageY()));
+            setImagePosition(new Vector2(event.getStageX(), event.getStageY()));
         }
 
         @Override
         public void dragStop(InputEvent event, float x, float y, int pointer) {
             resetImage(-1);
-            Vector2 stageXY = new Vector2(event.getStageX(),event.getStageY());
+            Vector2 stageXY = new Vector2(event.getStageX(), event.getStageY());
             Vector2 boardXY = parent.boardPanelGroup.stageToLocalCoordinates(stageXY);
-            int boardX = (int)boardXY.x;
-            int boardY = (int)boardXY.y;
+            int boardX = (int) boardXY.x;
+            int boardY = (int) boardXY.y;
             boolean boardXYInRect = true;
-            boardXYInRect = boardXYInRect && (boardX>=0);
-            boardXYInRect = boardXYInRect && (boardY>=0);
-            boardXYInRect = boardXYInRect && (boardX<parent.boardPanelGroup.COL_COUNT);
-            boardXYInRect = boardXYInRect && (boardY<parent.boardPanelGroup.ROW_COUNT);
-            if(!boardXYInRect){
+            boardXYInRect = boardXYInRect && (boardX >= 0);
+            boardXYInRect = boardXYInRect && (boardY >= 0);
+            boardXYInRect = boardXYInRect && (boardX < parent.boardPanelGroup.COL_COUNT);
+            boardXYInRect = boardXYInRect && (boardY < parent.boardPanelGroup.ROW_COUNT);
+            if (!boardXYInRect) {
                 cancel();
                 return;
             }
             Image pieceImage = parent.boardPanelGroup.createGetPieceImage(pieceIdx);
-            pieceImage.setPosition(boardX,boardY);
-            parent.pieceXYAry[pieceIdx] = new int[]{boardX,boardY};
-            if(parent.isPuzzleComplete()){
+            pieceImage.setPosition(boardX, boardY);
+            parent.pieceXYAry[pieceIdx] = new int[]{boardX, boardY};
+            if (parent.isPuzzleComplete()) {
                 parent.onPuzzleComplete();
             }
         }
     }
 
-    private void resetImage(int pieceIdx){
+    private void resetImage(int pieceIdx) {
         clearChildren();
-        dragImage=null;
-        if(pieceIdx<0)return;
+        dragImage = null;
+        if (pieceIdx < 0) return;
         dragImage = new Image(parent.pieceTextureRegionAry[pieceIdx]);
-        dragImage.setSize(parent.boardPieceSize,parent.boardPieceSize);
+        dragImage.setSize(parent.boardPieceSize, parent.boardPieceSize);
         addActor(dragImage);
     }
 
-    private void setImagePosition(Vector2 position){
-        if(dragImage==null)return;
-        float x = position.x-parent.boardPieceSize/2;
-        float y = position.y-parent.boardPieceSize/2;
-        Gdx.app.debug("",String.format("x:%.2f y:%.2f",x,y));
-        dragImage.setPosition(x,y);
+    private void setImagePosition(Vector2 position) {
+        if (dragImage == null) return;
+        float x = position.x - parent.boardPieceSize / 2;
+        float y = position.y - parent.boardPieceSize / 2;
+        Gdx.app.debug("", String.format("x:%.2f y:%.2f", x, y));
+        dragImage.setPosition(x, y);
     }
 
     @Override
     protected void sizeChanged() {
         super.sizeChanged();
-        if(dragImage!=null){
-            dragImage.setSize(parent.boardPieceSize,parent.boardPieceSize);
+        if (dragImage != null) {
+            dragImage.setSize(parent.boardPieceSize, parent.boardPieceSize);
         }
     }
 }

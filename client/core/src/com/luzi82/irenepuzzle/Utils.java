@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Utils {
 
-    public static final Rectangle UNIT_RECTANGLE = new Rectangle(0,0,1,1);
+    public static final Rectangle UNIT_RECTANGLE = new Rectangle(0, 0, 1, 1);
 
     public static final float PHI = (float) ((1 + Math.sqrt(5)) / 2);
 

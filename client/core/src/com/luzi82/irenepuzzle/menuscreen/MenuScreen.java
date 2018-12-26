@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -74,8 +73,8 @@ public class MenuScreen extends ScreenAdapter {
 
         stage.addActor(scrollPane);
 
-        for(ImageButton ib:ibAry){
-            ib.addListener(new ClickListener(){
+        for (ImageButton ib : ibAry) {
+            ib.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     IrenePuzzleGame.getInstance().setScreen(new PuzzleScreen());

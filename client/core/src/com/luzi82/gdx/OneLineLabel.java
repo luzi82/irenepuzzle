@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -31,22 +30,22 @@ public class OneLineLabel extends Group {
     BitmapFont labelFont;
     Label label;
 
-    public OneLineLabel(){
+    public OneLineLabel() {
         labelScaleGroup = new Group();
         addActor(labelScaleGroup);
     }
 
-    public void setFreeTypeFontGenerator(FreeTypeFontGenerator freeTypeFontGenerator){
+    public void setFreeTypeFontGenerator(FreeTypeFontGenerator freeTypeFontGenerator) {
         this.freeTypeFontGenerator = freeTypeFontGenerator;
         updateLabel();
     }
 
-    public void setText(CharSequence text){
+    public void setText(CharSequence text) {
         this.text = text;
         updateLabel();
     }
 
-    public void setAlignment(int alignment){
+    public void setAlignment(int alignment) {
         this.alignment = alignment;
     }
 
@@ -58,14 +57,14 @@ public class OneLineLabel extends Group {
         this.fontSizeMax = fontSizeMax;
     }
 
-    public void act(float delta){
+    public void act(float delta) {
         super.act(delta);
         detectFontSizeChange();
     }
 
-    void detectFontSizeChange(){
+    void detectFontSizeChange() {
         Stage stage = getStage();
-        if(stage==null)return;
+        if (stage == null) return;
 
         Vector2 topPt = localToStageCoordinates(Vector2.Y.cpy());
         topPt = stage.stageToScreenCoordinates(topPt);
@@ -73,51 +72,51 @@ public class OneLineLabel extends Group {
         Vector2 basePt = localToStageCoordinates(Vector2.Zero.cpy());
         basePt = stage.stageToScreenCoordinates(basePt);
 
-        int fontHeightPixel = (int)Math.ceil(topPt.dst(basePt));
+        int fontHeightPixel = (int) Math.ceil(topPt.dst(basePt));
 
-        if(this.fontHeightPixel == fontHeightPixel) return;
+        if (this.fontHeightPixel == fontHeightPixel) return;
         this.fontHeightPixel = fontHeightPixel;
 
         int fontHeightPt = freeTypeFontGenerator.scaleForPixelHeight(fontHeightPixel);
 
         boolean change = false;
-        change = change || ( OneLineLabel.this.fontHeightPt > fontHeightPt*2 );
-        change = change || ( OneLineLabel.this.fontHeightPt < fontHeightPt );
+        change = change || (OneLineLabel.this.fontHeightPt > fontHeightPt * 2);
+        change = change || (OneLineLabel.this.fontHeightPt < fontHeightPt);
 
-        if(!change)return;
+        if (!change) return;
 
-        fontHeightPt = (int)Math.ceil(fontHeightPt*SQRT2);
+        fontHeightPt = (int) Math.ceil(fontHeightPt * SQRT2);
         fontHeightPt = Math.max(fontHeightPt, fontSizeMin);
         fontHeightPt = Math.min(fontHeightPt, fontSizeMax);
-        change = (fontHeightPt!=OneLineLabel.this.fontHeightPt);
+        change = (fontHeightPt != OneLineLabel.this.fontHeightPt);
 
-        if(!change)return;
+        if (!change) return;
 
         OneLineLabel.this.fontHeightPt = fontHeightPt;
         updateLabel();
     }
 
-    void updateLabel(){
-        if(label!=null) {
+    void updateLabel() {
+        if (label != null) {
             labelScaleGroup.removeActor(label);
             label = null;
         }
-        if(labelFont!=null){
+        if (labelFont != null) {
             labelFont.dispose();
-            labelFont=null;
+            labelFont = null;
         }
 
-        if(freeTypeFontGenerator==null)return;
-        if(text==null)return;
-        if(fontHeightPt<=0)return;
+        if (freeTypeFontGenerator == null) return;
+        if (text == null) return;
+        if (fontHeightPt <= 0) return;
 
-        Gdx.app.log("HUEDGZBEGD", String.format("fontHeightPt=%d",fontHeightPt));
+        Gdx.app.log("HUEDGZBEGD", String.format("fontHeightPt=%d", fontHeightPt));
         HashSet<Character> charSet = new HashSet<Character>();
-        for(int i=0;i<text.length();++i){
+        for (int i = 0; i < text.length(); ++i) {
             charSet.add(text.charAt(i));
         }
-        StringBuilder charsetSb=new StringBuilder();
-        for(Character c:charSet){
+        StringBuilder charsetSb = new StringBuilder();
+        for (Character c : charSet) {
             charsetSb.append(c);
         }
 
@@ -127,29 +126,29 @@ public class OneLineLabel extends Group {
         labelFont = freeTypeFontGenerator.generateFont(fontParameter);
 
         float fontHeight = labelFont.getLineHeight();
-        labelScaleGroup.setScale(1/fontHeight);
+        labelScaleGroup.setScale(1 / fontHeight);
 
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = labelFont;
-        label = new Label(text,labelStyle);
+        label = new Label(text, labelStyle);
         label.setAlignment(alignment);
-        if((alignment&Align.left)!=0){
-            label.setPosition(0,0);
-        }else if((alignment&Align.right)!=0){
-            label.setPosition(-label.getPrefWidth(),0);
-        }else{
-            label.setPosition(-label.getPrefWidth()/2f,0);
+        if ((alignment & Align.left) != 0) {
+            label.setPosition(0, 0);
+        } else if ((alignment & Align.right) != 0) {
+            label.setPosition(-label.getPrefWidth(), 0);
+        } else {
+            label.setPosition(-label.getPrefWidth() / 2f, 0);
         }
         labelScaleGroup.addActor(label);
     }
 
-    public void dispose(){
-        if(labelFont!=null){
+    public void dispose() {
+        if (labelFont != null) {
             labelFont.dispose();
-            labelFont=null;
+            labelFont = null;
         }
     }
 
-    static final float SQRT2 = (float)Math.sqrt(2);
+    static final float SQRT2 = (float) Math.sqrt(2);
 
 }

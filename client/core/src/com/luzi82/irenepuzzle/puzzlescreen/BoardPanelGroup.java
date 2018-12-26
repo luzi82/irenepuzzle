@@ -45,13 +45,13 @@ public class BoardPanelGroup extends Group {
 
         pieceImageGroup = new Group();
         addActor(pieceImageGroup);
-        pieceImageAry = new Image[ROW_COUNT*COL_COUNT];
+        pieceImageAry = new Image[ROW_COUNT * COL_COUNT];
     }
 
-    Image createGetPieceImage(int pieceId){
-        if(pieceImageAry[pieceId]==null){
-            pieceImageAry[pieceId]=new Image(parent.pieceTextureRegionAry[pieceId]);
-            pieceImageAry[pieceId].setSize(1,1);
+    Image createGetPieceImage(int pieceId) {
+        if (pieceImageAry[pieceId] == null) {
+            pieceImageAry[pieceId] = new Image(parent.pieceTextureRegionAry[pieceId]);
+            pieceImageAry[pieceId].setSize(1, 1);
             pieceImageGroup.addActor(pieceImageAry[pieceId]);
         }
         return pieceImageAry[pieceId];
