@@ -7,9 +7,16 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.luzi82.irenepuzzle.IrenePuzzleGame;
 import com.luzi82.irenepuzzle.Utils;
+import com.luzi82.irenepuzzle.menuscreen.MenuScreen;
 
 public class PuzzleScreen extends ScreenAdapter {
 
@@ -30,6 +37,8 @@ public class PuzzleScreen extends ScreenAdapter {
 
     Texture puzzleImage;
     TextureRegion[] pieceTextureRegionAry;
+
+    WidgetGroup completeExitClickDetect;
 
     // actions
     PieceDragLayerGroup pieceDragLayerGroup;
@@ -74,10 +83,21 @@ public class PuzzleScreen extends ScreenAdapter {
         piecePanelGroup = new PiecePanelGroup(this);
         puzzleCompleteDialogGroup = new PuzzleCompleteDialogGroup(this);
 
+        completeExitClickDetect = new WidgetGroup();
+        completeExitClickDetect.setFillParent(true);
+        completeExitClickDetect.setVisible(false);
+        completeExitClickDetect.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                IrenePuzzleGame.getInstance().setScreen(new MenuScreen());
+            }
+        });
+
         stage.addActor(boardPanelGroup);
         stage.addActor(piecePanelGroup);
         stage.addActor(pieceDragLayerGroup);
         stage.addActor(puzzleCompleteDialogGroup);
+        stage.addActor(completeExitClickDetect);
     }
 
     @Override
@@ -149,6 +169,7 @@ public class PuzzleScreen extends ScreenAdapter {
         Gdx.app.log("", "FZTCOITZJJ onPuzzleComplete");
         state = State.COMPLETE;
         puzzleCompleteDialogGroup.setEnable(true);
+        completeExitClickDetect.setVisible(true);
     }
 
 }
