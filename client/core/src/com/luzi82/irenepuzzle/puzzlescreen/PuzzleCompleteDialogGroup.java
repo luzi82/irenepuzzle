@@ -30,6 +30,18 @@ public class PuzzleCompleteDialogGroup extends Group {
         this.parent = parent;
 
         bgTexture = Utils.createColorTexture(BG_COLOR);
+
+        bgImage = new Image(bgTexture);
+        Utils.setSize(bgImage, INNER_RECT);
+        addActor(bgImage);
+
+        label = new OneLineLabel();
+        label.setFreeTypeFontGenerator(IrenePuzzleGame.getInstance().fontGenerator);
+        label.setText("Finish");
+        label.setPosition(0.5f, INNER_RECT.height / 3f);
+        label.setScale(INNER_RECT.height / 3f);
+        label.setAlignment(Align.center);
+        addActor(label);
     }
 
     // func own by PuzzleScreen
@@ -48,29 +60,6 @@ public class PuzzleCompleteDialogGroup extends Group {
 
         Rectangle myRect = new Rectangle(myX, myY, myWidth, myHeight);
         Utils.setSize(this, myRect, INNER_RECT.getSize(new Vector2()));
-    }
-
-    public void setEnable(boolean enable) {
-        if (enable && (bgImage == null)) {
-            bgImage = new Image(bgTexture);
-            Utils.setSize(bgImage, INNER_RECT);
-            addActor(bgImage);
-
-            label = new OneLineLabel();
-            label.setFreeTypeFontGenerator(IrenePuzzleGame.getInstance().fontGenerator);
-            label.setText("Finish");
-            label.setPosition(0.5f, INNER_RECT.height / 3f);
-            label.setScale(INNER_RECT.height / 3f);
-            label.setAlignment(Align.center);
-            addActor(label);
-        } else if ((!enable) && (bgImage != null)) {
-            removeActor(bgImage);
-            bgImage = null;
-
-            removeActor(label);
-            label.dispose();
-            label = null;
-        }
     }
 
     public void dispose() {

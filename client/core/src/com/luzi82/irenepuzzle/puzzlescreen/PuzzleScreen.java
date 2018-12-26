@@ -7,10 +7,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -82,6 +80,7 @@ public class PuzzleScreen extends ScreenAdapter {
         boardPanelGroup = new BoardPanelGroup(this, ROW_COUNT, COL_COUNT);
         piecePanelGroup = new PiecePanelGroup(this);
         puzzleCompleteDialogGroup = new PuzzleCompleteDialogGroup(this);
+        puzzleCompleteDialogGroup.setVisible(false);
 
         completeExitClickDetect = new WidgetGroup();
         completeExitClickDetect.setFillParent(true);
@@ -168,7 +167,7 @@ public class PuzzleScreen extends ScreenAdapter {
     public void onPuzzleComplete() {
         Gdx.app.log("", "FZTCOITZJJ onPuzzleComplete");
         state = State.COMPLETE;
-        puzzleCompleteDialogGroup.setEnable(true);
+        puzzleCompleteDialogGroup.setVisible(true);
         completeExitClickDetect.setVisible(true);
     }
 
