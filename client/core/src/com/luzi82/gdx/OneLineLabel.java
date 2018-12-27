@@ -67,8 +67,6 @@ public class OneLineLabel extends Group {
     }
 
     void onScaleChange() {
-        Gdx.app.log("QLRKAEBXOI", "onScaleChange");
-
         Stage stage = getStage();
 
         Vector2 topPt = localToStageCoordinates(Vector2.Y.cpy());
