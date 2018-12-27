@@ -20,8 +20,8 @@ public abstract class OnScaleChange extends Group {
 
     // tmp var for reuse
     private float[] dstAryTmp;
-    Vector2 tmpAPt = new Vector2();
-    Vector2 tmpBPt = new Vector2();
+    private Vector2 tmpAPt = new Vector2();
+    private Vector2 tmpBPt = new Vector2();
 
     public void act(float delta) {
         super.act(delta);
