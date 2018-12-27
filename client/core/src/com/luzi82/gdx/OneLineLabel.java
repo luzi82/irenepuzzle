@@ -33,6 +33,15 @@ public class OneLineLabel extends Group {
     public OneLineLabel() {
         labelScaleGroup = new Group();
         addActor(labelScaleGroup);
+
+        OnScaleChange onScaleChange = new OnScaleChange() {
+            @Override
+            public void onScaleChange() {
+                OneLineLabel.this.onScaleChange();
+            }
+        };
+        onScaleChange.addVectorPair(Vector2.Zero, Vector2.Y);
+        addActor(onScaleChange);
     }
 
     public void setFreeTypeFontGenerator(FreeTypeFontGenerator freeTypeFontGenerator) {
@@ -57,14 +66,10 @@ public class OneLineLabel extends Group {
         this.fontSizeMax = fontSizeMax;
     }
 
-    public void act(float delta) {
-        super.act(delta);
-        detectFontSizeChange();
-    }
+    void onScaleChange() {
+        Gdx.app.log("QLRKAEBXOI", "onScaleChange");
 
-    void detectFontSizeChange() {
         Stage stage = getStage();
-        if (stage == null) return;
 
         Vector2 topPt = localToStageCoordinates(Vector2.Y.cpy());
         topPt = stage.stageToScreenCoordinates(topPt);
