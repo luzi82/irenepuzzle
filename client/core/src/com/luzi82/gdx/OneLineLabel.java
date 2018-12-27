@@ -22,7 +22,6 @@ public class OneLineLabel extends Group {
     int fontSizeMax = 256;
 
     // dynamic
-    float fontHeightPixel = -1;
     int fontHeightPt = -1;
 
     // member
@@ -76,10 +75,6 @@ public class OneLineLabel extends Group {
         basePt = stage.stageToScreenCoordinates(basePt);
 
         int fontHeightPixel = (int) Math.ceil(topPt.dst(basePt));
-
-        if (this.fontHeightPixel == fontHeightPixel) return;
-        this.fontHeightPixel = fontHeightPixel;
-
         int fontHeightPt = freeTypeFontGenerator.scaleForPixelHeight(fontHeightPixel);
 
         boolean change = false;
